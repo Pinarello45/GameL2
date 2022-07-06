@@ -1,0 +1,46 @@
+<!doctype html>
+<body>
+    <canvas id="gameCanvas" width="1000" height="800"></canvas>
+    <script>
+        var canvas, canvasContext;
+
+        window.onload = function() {
+            canvas = document.getElementById('gameCanvas');
+            canvasContext = canvas.getContext('2d');
+
+            setInterval(mainloop, 1000 / 50);
+        }
+        var playerXpos = 600; //player vairables eg player speed, where player spawns
+        var playerYpos = 450;
+        var playerXspeed = 10;
+        var playerYspeed = 10;
+        const PLAYER_SIZE = 20;]
+    
+        
+        function mainloop() {
+            colorRect(0,0,canvas.width,canvas.height, 'black'); // bg
+            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //player 
+        }
+        
+         function colorRect(x,y,w,h,c){
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x,y,w,h);
+        }
+
+        function keyPressed(evt) { // when key pressed player moves
+            if (evt.keyCode == RIGHT_KEY) {
+                rightkeypressed = true;
+            }
+            if (evt.keyCode == LEFT_KEY) {
+                leftkeypressed = true;
+            }
+            if (evt.keyCode == UP_KEY) {
+                upkeypressed = true;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downkeypressed = true;
+            }
+        } // end of function
+    
+    </script>
+</body>
