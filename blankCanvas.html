@@ -1,46 +1,125 @@
 <!doctype html>
+
 <body>
     <canvas id="gameCanvas" width="1000" height="800"></canvas>
-    <script>
-        var canvas, canvasContext;
-
-        window.onload = function() {
-            canvas = document.getElementById('gameCanvas');
-            canvasContext = canvas.getContext('2d');
-
-            setInterval(mainloop, 1000 / 50);
-        }
-        var playerXpos = 600; //player vairables eg player speed, where player spawns
-        var playerYpos = 450;
-        var playerXspeed = 10;
-        var playerYspeed = 10;
-        const PLAYER_SIZE = 20;]
-    
-        
-        function mainloop() {
-            colorRect(0,0,canvas.width,canvas.height, 'black'); // bg
-            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //player 
-        }
-        
-         function colorRect(x,y,w,h,c){
-            canvasContext.fillStyle = c;
-            canvasContext.fillRect(x,y,w,h);
-        }
-
-        function keyPressed(evt) { // when key pressed player moves
-            if (evt.keyCode == RIGHT_KEY) {
-                rightkeypressed = true;
-            }
-            if (evt.keyCode == LEFT_KEY) {
-                leftkeypressed = true;
-            }
-            if (evt.keyCode == UP_KEY) {
-                upkeypressed = true;
-            }
-            if (evt.keyCode == DOWN_KEY) {
-                downkeypressed = true;
-            }
-        } // end of function
-    
-    </script>
 </body>
+<script>
+    var canvas, canvasContext;
+
+    window.onload = function () {
+        canvas = document.getElementById('gameCanvas');
+        canvasContext = canvas.getContext('2d');
+
+        document.addEventListener('keydown', keyPressed)
+        document.addEventListener('keyup', keyReleased)
+
+        setInterval(mainloop, 1000 / 50);
+    }
+
+    
+
+    var playerXpos = 600; //player vairables eg player speed, where player spawns
+    var playerYpos = 450;
+    var playerXspeed = 10;
+    var playerYspeed = 10;
+    const PLAYER_SIZE = 20;
+
+    var player = new Image();
+    player.src = "Images/FlappySprite.png";
+
+    const RIGHT_KEY = 39 //player movement keys
+    const LEFT_KEY = 37
+    const UP_KEY = 38
+    const DOWN_KEY = 40
+    var rightKeyPressed = false;
+    var leftKeyPressed = false;
+    var upKeyPressed = false;
+    var downKeyPressed = false;
+
+    var score = 0;
+    var background1 = new Image();
+     background1.src = "Images/FlappyBackground.png";
+
+    function mainloop() {
+        drawImg(background1, 0, 0, canvas.width, canvas.height, ); // bg
+        drawImg(player, playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE); //player 
+
+        playerMove();
+    }
+
+
+    function playerMove() {
+
+
+
+        if (rightKeyPressed && playerXpos < canvas.width * .979) {
+            playerXpos += playerXspeed
+        }
+
+        if (leftKeyPressed && playerXpos > canvas.width * .001) {
+            playerXpos -= playerXspeed
+        }
+
+        if (upKeyPressed) {
+            playerYspeed = -15;
+        }
+        playerYpos += playerYspeed;
+        playerYspeed += 2;
+        if (playerYpos <= 0) {
+            playerYpos = 0;
+            playerYspeed = 0.5;
+
+        }
+        if (playerYpos + PLAYER_SIZE >= canvas.height) {
+            playerYpos = canvas.height - PLAYER_SIZE;
+        }
+    }
+
+    function keyPressed(evt) { // when key pressed player moves
+        if (evt.keyCode == RIGHT_KEY) {
+            rightKeyPressed = true;
+        }
+        if (evt.keyCode == LEFT_KEY) {
+            leftKeyPressed = true;
+        }
+        if (evt.keyCode == UP_KEY) {
+            upKeyPressed = true;
+        }
+        if (evt.keyCode == DOWN_KEY) {
+            downKeyPressed = true;
+        }
+    } // end of function
+
+    function keyReleased(evt) { // when key released player stops
+        if (evt.keyCode == RIGHT_KEY) {
+            rightKeyPressed = false;
+        }
+        if (evt.keyCode == LEFT_KEY) {
+            leftKeyPressed = false;
+        }
+        if (evt.keyCode == UP_KEY) {
+            upKeyPressed = false;
+        }
+        if (evt.keyCode == DOWN_KEY) {
+            downKeyPressed = false;
+        }
+    } // end of function
+
+    function colorRect(x, y, w, h, c) {
+        canvasContext.fillStyle = c;
+        canvasContext.fillRect(x, y, w, h);
+    }
+
+    function drawImg(src, x, y, w, h) {
+        canvasContext.drawImage(src, x, y, w, h);
+    }
+
+    function loadImgAssests(){
+        imgs ={};
+        imgs.enemy = new Image();
+        imgs.enemy.src = "images/Pipe.png"
+        return imgs;
+    }
+
+   
+</script>
