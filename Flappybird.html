@@ -308,4 +308,9 @@ const pipes = {
             let p = this.position[i];
             
             let bottomPipeYPos = p.y + this.h + this.gap;
+            
+            // COLLISION DETECTION
+            // TOP PIPE
+            if(bird.x + bird.radius > p.x && bird.x - bird.radius < p.x + this.w && bird.y + bird.radius > p.y && bird.y - bird.radius < p.y + this.h){
+                state.current = state.over;
            
