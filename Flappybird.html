@@ -295,4 +295,17 @@ const pipes = {
         }
     },
     
-   
+    update: function(){
+        if(state.current !== state.game) return;
+        
+        if(frames%100 == 0){
+            this.position.push({
+                x : cvs.width,
+                y : this.maxYPos * ( Math.random() + 1)
+            });
+        }
+        for(let i = 0; i < this.position.length; i++){
+            let p = this.position[i];
+            
+            let bottomPipeYPos = p.y + this.h + this.gap;
+           
