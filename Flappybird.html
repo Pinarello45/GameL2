@@ -82,3 +82,20 @@ const startBtn = {
     h : 29
 }
 
+// CONTROL THE GAME
+cvs.addEventListener("click", function(evt){
+    switch(state.current){
+        case state.getReady:
+            state.current = state.game;
+            SWOOSHING.play();
+            break;
+        case state.game:
+            if(bird.y - bird.radius <= 0) return;
+            bird.flap();
+            FLAP.play();
+            break;
+        case state.over:
+            let rect = cvs.getBoundingClientRect();
+            let clickX = evt.clientX - rect.left;
+            let clickY = evt.clientY - rect.top;
+            
