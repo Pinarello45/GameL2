@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Original Flappy Bird -JavaScript</title>
+    <link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+    <style>        
+        canvas{
+            border: 1px solid #000;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bird" width="320" height="480"></canvas>
+
+    <script src="game.js"></script>
+</body>
+<script>
+    
+    var userName = '';
+        while (userName == '' || userName == null) {
+            userName = prompt('Whats your name?')
+        }
+
+        var eNum = 0;
+
+
+        var difficulty = '';
+        var pass = false;
+
+        while (pass == false) { 
+            difficulty = prompt('Do you want easy or hard?');// asks difficulty
+            difficulty = difficulty.toLocaleLowerCase() //converts to lowercase
+            if (difficulty == 'easy' || difficulty == 'hard') {//only easy and hard will be accepted
+                pass = true;
+            }
+        }
+
